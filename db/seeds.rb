@@ -114,50 +114,50 @@ courses_business.each do |p|
   Rails.logger.debug "Created #{Difficulty.count} difficulties."
 end
 
-# # Graphic Design
-# courses_design.each do |p|
-#   # Creates courses
-#   course_designs = Course.find_by(course_title: p["course_title"])
-#   unless Category.exists?(category_name: p["subject"])
-#     newCategory = Category.create(category_name: p["subject"])
-#   end
+# Graphic Design
+courses_design.each do |p|
+  # Creates courses
+  course_designs = Course.find_by(course_title: p["course_title"])
+  unless Category.exists?(category_name: p["subject"])
+    newCategory = Category.create(category_name: p["subject"])
+  end
 
-#   unless course_designs&.valid?
+  unless course_designs&.valid?
 
-#     course = Course.create(
-#       course_title:       p["course_title"],
-#       description:        "",
-#       price:              p["price"],
-#       number_of_lectures: p["num_lectures"],
-#       difficulty_id:      Difficulty.where(difficulty: p["level"]).pluck(:id).first,
-#       course_length:      p["content_duration"],
-#       category_id:        Category.where(category_name: p["subject"]).pluck(:id).first,
-#       publish_date:       p["published_timestamp"]
-#     )
-#   end
-#   Rails.logger.debug "Created #{Difficulty.count} difficulties."
-# end
+    course = Course.create(
+      course_title:       p["course_title"],
+      description:        "",
+      price:              p["price"],
+      number_of_lectures: p["num_lectures"],
+      difficulty_id:      Difficulty.where(difficulty: p["level"]).pluck(:id).first,
+      course_length:      p["content_duration"],
+      category_id:        Category.where(category_name: p["subject"]).pluck(:id).first,
+      publish_date:       p["published_timestamp"]
+    )
+  end
+  Rails.logger.debug "Created #{Difficulty.count} difficulties."
+end
 
-# # Courses music
-# courses_music.each do |p|
-#   # Creates courses
-#   course_music_exists = Course.find_by(course_title: p["course_title"])
-#   unless Category.exists?(category_name: p["subject"])
-#     newCategory = Category.create(category_name: p["subject"])
-#   end
+# Courses music
+courses_music.each do |p|
+  # Creates courses
+  course_music_exists = Course.find_by(course_title: p["course_title"])
+  unless Category.exists?(category_name: p["subject"])
+    newCategory = Category.create(category_name: p["subject"])
+  end
 
-#   unless course_music_exists&.valid?
+  unless course_music_exists&.valid?
 
-#     course = Course.create(
-#       course_title:       p["course_title"],
-#       description:        "",
-#       price:              p["price"],
-#       number_of_lectures: p["num_lectures"],
-#       difficulty_id:      Difficulty.where(difficulty: p["level"]).pluck(:id).first,
-#       course_length:      p["content_duration"],
-#       category_id:        Category.where(category_name: p["subject"]).pluck(:id).first,
-#       publish_date:       p["published_timestamp"]
-#     )
-#   end
-#   Rails.logger.debug "Created #{Difficulty.count} difficulties."
-# end
+    course = Course.create(
+      course_title:       p["course_title"],
+      description:        "",
+      price:              p["price"],
+      number_of_lectures: p["num_lectures"],
+      difficulty_id:      Difficulty.where(difficulty: p["level"]).pluck(:id).first,
+      course_length:      p["content_duration"],
+      category_id:        Category.where(category_name: p["subject"]).pluck(:id).first,
+      publish_date:       p["published_timestamp"]
+    )
+  end
+  Rails.logger.debug "Created #{Difficulty.count} difficulties."
+end
