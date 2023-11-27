@@ -10,11 +10,13 @@ require "csv"
 Course.destroy_all
 Difficulty.destroy_all
 Category.destroy_all
+Province.destroy_all
 
 # Reset auto increment
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='courses';")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='difficulties';")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='categories';")
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='provinces';")
 
 filenameDifficulty = Rails.root.join("db/difficulty.csv")
 filenameCategory = Rails.root.join("db/categories.csv")
@@ -22,6 +24,7 @@ filenameWebDevelopment = Rails.root.join("db/courses-webdevelopment.csv")
 filenameBusiness = Rails.root.join("db/courses-business.csv")
 filenameDesign = Rails.root.join("db/courses-design.csv")
 filenameMusic = Rails.root.join("db/courses-music.csv")
+filenameProvinceTaxes = Rails.root.join("db/ProvinceTax.csv")
 
 # Reads data
 difficulty_data = File.read(filenameDifficulty)
@@ -30,6 +33,7 @@ courses_web_data = File.read(filenameWebDevelopment)
 courses_business_data = File.read(filenameBusiness)
 courses_design_data = File.read(filenameDesign)
 courses_music_data = File.read(filenameMusic)
+provinces_data = File.read(filenameProvinceTaxes)
 
 difficulties = CSV.parse(difficulty_data, headers: true, encoding: "utf-8")
 categories = CSV.parse(category_data, headers: true, encoding: "utf-8")
@@ -37,6 +41,7 @@ courses_webdev = CSV.parse(courses_web_data, headers: true, encoding: "utf-8")
 courses_business = CSV.parse(courses_business_data, headers: true, encoding: "utf-8")
 courses_design = CSV.parse(courses_design_data, headers: true, encoding: "utf-8")
 courses_music = CSV.parse(courses_music_data, headers: true, encoding: "utf-8")
+provinces = CSV.parse(provinces_data, headers: true, encoding: "utf-8")
 
 # Creates difficulty
 difficulties.each do |p|
@@ -157,6 +162,22 @@ courses_music.each do |p|
       course_length:      p["content_duration"],
       category_id:        Category.where(category_name: p["subject"]).pluck(:id).first,
       publish_date:       p["published_timestamp"]
+    )
+  end
+  Rails.logger.debug "Created #{Difficulty.count} difficulties."
+end
+
+# Provinces
+provinces.each do |p|
+  # Creates courses
+  province_exists = Province.find_by(Province_Name: p["Province"])
+
+  unless province_exists&.valid?
+    province = Province.create(
+      Province_Name: p["Province"],
+      PST:           p["PST"],
+      GST:           p["GST"],
+      HST:           p["HST"]
     )
   end
   Rails.logger.debug "Created #{Difficulty.count} difficulties."
