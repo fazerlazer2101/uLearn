@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_27_175727) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_004054) do
   create_table "categories", force: :cascade do |t|
     t.string "category_name"
     t.datetime "created_at", null: false
@@ -30,6 +30,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_175727) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["difficulty_id"], name: "index_courses_on_difficulty_id"
+  end
+
+  create_table "customer_infos", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "phone_number"
+    t.string "address"
+    t.integer "user_id", null: false
+    t.integer "province_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["province_id"], name: "index_customer_infos_on_province_id"
+    t.index ["user_id"], name: "index_customer_infos_on_user_id"
   end
 
   create_table "difficulties", force: :cascade do |t|
@@ -61,4 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_27_175727) do
 
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "difficulties"
+  add_foreign_key "customer_infos", "provinces"
+  add_foreign_key "customer_infos", "users"
 end
