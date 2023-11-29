@@ -28,6 +28,13 @@
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+      <% if user_signed_in? %>
+        Welcome, <%= link_to current_user.email,  "/user/#{current_user.id}" %>
+          <%= button_to "Sign out", destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
+        <% else %>
+          <%= button_to 'Log In', new_user_session_path, class: 'btn btn-primary', data: { bs_toggle: 'modal', bs_target: '#loginModal' } %>
+          <%# <%= button_to "Sign in", new_user_session_path %>
+      <% end %>
     </div>
   </div>
 </nav>
