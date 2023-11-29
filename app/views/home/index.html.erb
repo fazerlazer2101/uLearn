@@ -1,0 +1,10 @@
+<h1>Courses U can Learn!</h1>
+<div>
+  <% @courses.each do |course| %>
+  <div>
+    <a href="<%= course_path(course) %>">
+      <%= course.course_title %>
+    </a>
+  </div>
+  <% end %>
+</div>
