@@ -6,5 +6,9 @@
 <% else %>
   <%= button_to "Sign in", new_user_session_path %>
 <% end %>
-<h1>Homepage#index</h1>
-<p>Find me in app/views/homepage/index.html.erb</p>
+<h1>Courses U can Learn!</h1>
+<div>
+  <% @courses.each do |course| %>
+    <h5><%= course.course_title %></h5>
+  <% end %>
+</div>
