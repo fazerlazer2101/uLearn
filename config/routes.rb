@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'courses/show'
   # Routes for Course (Home)
   root to: "home#index"
+  # get 'courses/show'
+  resources :courses, only: %i[show]
 
   # Routes for User
   get "user/show"
