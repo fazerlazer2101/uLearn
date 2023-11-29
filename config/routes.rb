@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   # Routes for Course (Home)
   root to: "home#index"
-  get 'home/about'
+  get "home/about"
   resources :courses, only: %i[show]
 
   # Routes for User

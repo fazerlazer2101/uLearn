@@ -182,3 +182,4 @@ provinces.each do |p|
   end
   Rails.logger.debug "Created #{Difficulty.count} difficulties."
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
