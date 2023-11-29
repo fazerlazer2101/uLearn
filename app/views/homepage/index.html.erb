@@ -4,7 +4,7 @@
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
   <%= link_to current_user.email,  "/user/#{current_user.id}"%>
 <% else %>
-  <%= button_to "Sign in", new_user_session_path %>
+  <%= button_to "Sign in", new_user_session_path , method: :get%>
 <% end %>
 <h1>Homepage#index</h1>
 <p>Find me in app/views/homepage/index.html.erb</p>
