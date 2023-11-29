@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'courses/show'
   # Routes for Course (Home)
   root to: "home#index"
 
