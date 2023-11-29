@@ -32,8 +32,8 @@
         Welcome, <%= link_to current_user.email,  "/user/#{current_user.id}" %>
           <%= button_to "Sign out", destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
         <% else %>
-          <%= button_to 'Log In', new_user_session_path, class: 'btn btn-primary', data: { bs_toggle: 'modal', bs_target: '#loginModal' } %>
-          <%# <%= button_to "Sign in", new_user_session_path %>
+          <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-primary', data: { bs_toggle: 'modal', bs_target: '#loginModal' } %>
+        <%new_user_session_path%>
       <% end %>
     </div>
   </div>
