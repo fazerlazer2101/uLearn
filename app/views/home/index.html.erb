@@ -1,10 +1,16 @@
 <h1>Courses U can Learn!</h1>
 <div>
+<%= session[:cart] %>
   <% @courses.each do |course| %>
   <div>
     <a href="<%= course_path(course) %>">
       <%= course.course_title %>
     </a>
+    <%= form_with url:"cart/#{course.id}", method: :post do%>
+
+<%= button_tag "Add to cart" %>
+<%end%>
   </div>
   <% end %>
+
 </div>
