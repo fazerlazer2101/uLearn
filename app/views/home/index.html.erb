@@ -6,9 +6,16 @@
     <a href="<%= course_path(course) %>">
       <%= course.course_title %>
     </a>
-    <%= form_with url:"cart/#{course.id}", method: :post do%>
+    <% if !session[:cart].nil? &&session[:cart].include?(course.id) %>
+      <%= form_with url:"cart/#{course.id}/delete", method: :post do%>
+      <%= button_tag "Remove From Cart" %>
+      <%end%>
+    <%else%>
+      <%= form_with url:"cart/#{course.id}/update", method: :post do%>
+      <%= button_tag "Add to cart" %>
 
-<%= button_tag "Add to cart" %>
+    <%end%>
+
 <%end%>
   </div>
   <% end %>

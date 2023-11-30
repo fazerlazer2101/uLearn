@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get "user/show"
   devise_for :users
   post "/user/:id/update", to: "user#update"
-  post "/cart/:id", to: "cart#create"
+  post "/cart/:id/update", to: "cart#create"
+  post "/cart/:id/delete", to: "cart#delete"
   get "/user/:id", to: "user#show"
   resources :customer_infos, only: %i[show]
 end
