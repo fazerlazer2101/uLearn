@@ -1,2 +1,20 @@
-<h1>Categories#index</h1>
-<p>Find me in app/views/categories/index.html.erb</p>
+<h1>Course Categories</h1><br/>
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Category Name</th>
+      <th scope="col">Courses in this Category</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.id %></td>
+        <td><%= link_to category.category_name, category %></td>
+        <td><%= category.courses.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table><br/>
