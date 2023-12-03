@@ -281,6 +281,7 @@ DEPENDENCIES
   devise
   importmap-rails
   jbuilder
+  kaminari
   puma (~> 5.0)
   rails (~> 7.0.8)
   sassc (~> 2.4)
