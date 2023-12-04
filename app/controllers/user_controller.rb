@@ -1,5 +1,8 @@
 class UserController < ApplicationController
   helper_method :current_user
+
+  #Flash types
+add_flash_types :success
   def show
     @Province = Province.all
     # Retrieve current user info
@@ -15,7 +18,8 @@ class UserController < ApplicationController
         address:       params[:address],
         province_id:   params[:province_id]
       )
-      puts("updates")
+      flash[:success]= "Successfully updated user information!"
+      redirect_to user_password_path, success: "Successfully updated user information!"
     else
       info = CustomerInfo.create(
         customer_name: params[:fullName],
@@ -24,7 +28,8 @@ class UserController < ApplicationController
         user_id:       params[:id],
         province_id:   params[:province_id]
       )
-      puts("creates")
+      flash[:success]= "Successfully updated user information!"
+      redirect_to user_password_path, success: "Successfully updated user information!"
     end
   end
 end

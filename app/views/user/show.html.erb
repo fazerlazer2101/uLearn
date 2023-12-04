@@ -1,5 +1,12 @@
 <h1><%=current_user.email%></h1>
 <p>Finish making your account!</p>
+<!---Flash Hash Message--->
+<% flash.each do |type, msg| %>
+  <div class="alert alert-<%=type%>">
+    <%= msg %>
+  </div>
+<% end %>
+<!---User update information form--->
 <div>
 <%if(!@currentUserInformation.nil?)%>
   <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
@@ -26,6 +33,9 @@
     <%= submit_tag("submit") %>
   <% end %>
 <%end%>
+
+
+
 
 
 </div>
