@@ -17,6 +17,7 @@ class CartController < ApplicationController
   end
 
   def show
+    require 'json'
     @items_in_cart = session[:cart]
     @test ||= [];
     @total_price = 0;
@@ -24,6 +25,11 @@ class CartController < ApplicationController
       @test << Course.find(n)
       @total_price += Course.find(n).price
     end
+
+
+
+
+
 
   end
 
