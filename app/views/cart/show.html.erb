@@ -12,6 +12,7 @@
 <!---Total--->
 <div>
 <%=@total_price%>
+<%= button_to 'Checkout', "/cart/Checkout", method: :get, class: 'btn btn-primary' %>
 </div>
 
 <p>Displays all items in the cart</p>

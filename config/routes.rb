@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   #Routes for cart
   post "/cart/:id/update", to: "cart#create"
   post "/cart/:id/delete", to: "cart#delete"
+  get "/cart/Checkout", to: "cart#checkout"
   get "/cart", to: "cart#show"
   get "/user/:id", to: "user#show"
   resources :customer_infos, only: %i[show]
