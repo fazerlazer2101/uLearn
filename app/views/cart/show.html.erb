@@ -1,0 +1,17 @@
+<h1>Cart Show</h1>
+
+<!---Cart Items--->
+<div>
+  <% @test.each do |course| %>
+
+    <h6><%=course.course_title%></h6>
+    <p><%=Category.find(course.category_id).category_name%>, <%=Difficulty.find(course.difficulty_id).difficulty%></p>
+    <p><%=course.price%></p>
+  <%end%>
+</div>
+<!---Total--->
+<div>
+<%=@total_price%>
+</div>
+
+<p>Displays all items in the cart</p>

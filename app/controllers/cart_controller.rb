@@ -14,4 +14,15 @@ class CartController < ApplicationController
     session[:cart].delete(course_id)
     redirect_to root_path
   end
+
+  def show
+    @items_in_cart = session[:cart]
+    @test ||= [];
+    @total_price = 0;
+    @items_in_cart.each do |n|
+      @test << Course.find(n)
+      @total_price += Course.find(n).price
+    end
+
+  end
 end
