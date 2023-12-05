@@ -35,7 +35,7 @@ add_flash_types :success
     Stripe::Customer.update(
   User.find(current_user.id).stripe_customer_id.to_s,
   {
-    phone: params[:phone].to_s,
+    phone: "1#{params[:phone].to_s}",
     name: params[:fullName].to_s,
     address: {
       country: 'CA',
@@ -49,6 +49,7 @@ add_flash_types :success
         state: Province.find(params[:province_id]).Province_Name.to_s,
       },
       name: params[:fullName].to_s,
+      phone: "1#{params[:phone].to_s}",
     },
   },
 )
