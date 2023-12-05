@@ -32,9 +32,11 @@ class CheckoutController < ApplicationController
       redirect_to root_path
     end
 
+
     #Create Stripe session
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
+      customer: User.find(@userSession.id).stripe_customer_id,
       success_url: checkout_success_url,
       cancel_url: checkout_cancel_url,
       line_items: [json_data],
