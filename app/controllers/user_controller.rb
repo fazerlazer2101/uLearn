@@ -31,5 +31,26 @@ add_flash_types :success
       flash[:success]= "Successfully updated user information!"
       redirect_to user_password_path, success: "Successfully updated user information!"
     end
+
+    Stripe::Customer.update(
+  User.find(current_user.id).stripe_customer_id.to_s,
+  {
+    phone: params[:phone].to_s,
+    name: params[:fullName].to_s,
+    address: {
+      country: 'CA',
+      line1: params[:address].to_s,
+      state: Province.find(params[:province_id]).Province_Name.to_s,
+    },
+    shipping: {
+      address: {
+        country: 'CA',
+        line1:  params[:address].to_s,
+        state: Province.find(params[:province_id]).Province_Name.to_s,
+      },
+      name: params[:fullName].to_s,
+    },
+  },
+)
   end
 end
