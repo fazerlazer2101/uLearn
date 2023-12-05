@@ -20,7 +20,6 @@
     <p><%=@subtotal_price%></p>
     </div>
   </div>
-
   <div>
   <!---Taxes--->
     <h6>GST(<%= Province.find_by(id:@customerInfo.province_id).GST * 100%>%):</h6>
@@ -37,8 +36,9 @@
     <%= button_to 'Checkout', checkout_create_path, method: :post, class: 'btn btn-primary' %>
   </div>
 <%else%>
+<!---Requests user to fill in address and province at minimum before procceding--->
 <h6>Please Fill in your information before continuing</h6>
-<%= form_with url: "cart/#{@currentUser.id}/addRegion", method: :post do |form| %>
+  <%= form_with url: "cart/#{@currentUser.id}/addRegion", method: :post do |form| %>
     <%= form.label :address, "Address" %>
     <%= form.text_field :address %><br>
     <%= form.label :province_id, "Province/Territory" %>

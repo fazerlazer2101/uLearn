@@ -18,13 +18,11 @@ Rails.application.routes.draw do
   get "/cart", to: "cart#show"
 
   #Stripe stuff
-scope "cart/checkout" do
-post "create", to: "checkout#create", as: "checkout_create"
-get "success", to: "checkout#success", as: "checkout_success"
-get "cancel", to: "checkout#cancel", as: "checkout_cancel"
-
-
-end
+  scope "cart/checkout" do
+    post "create", to: "checkout#create", as: "checkout_create"
+    get "success", to: "checkout#success", as: "checkout_success"
+    get "cancel", to: "checkout#cancel", as: "checkout_cancel"
+  end
 
   get "/user/:id", to: "user#show"
   resources :customer_infos, only: %i[show]
