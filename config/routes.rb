@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   #Routes for cart
   post "/cart/:id/update", to: "cart#create"
   post "/cart/:id/delete", to: "cart#delete"
+  post "/cart/:id/addRegion", to: "cart#addRegion"
   get "/cart", to: "cart#show"
 
   #Stripe stuff

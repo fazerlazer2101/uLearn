@@ -1,18 +1,50 @@
 <h1>Cart Show</h1>
+<!---Flash Hash Message--->
+<% flash.each do |type, msg| %>
+  <div class="alert alert-<%=type%>">
+    <%= msg %>
+  </div>
+<% end %>
+<%if !CustomerInfo.find_by(user_id: @currentUser.id).nil?%>
+  <!---Cart Items--->
+  <div>
+    <% @test.each do |course| %>
 
-<!---Cart Items--->
-<div>
-  <% @test.each do |course| %>
+      <h6><%=course.course_title%></h6>
+      <p><%=Category.find(course.category_id).category_name%>, <%=Difficulty.find(course.difficulty_id).difficulty%></p>
+      <p><%=course.price%></p>
+    <%end%>
+    <!---Subtotal--->
+    <div>
+    <h6>Subtotal<h6>
+    <p><%=@subtotal_price%></p>
+    </div>
+  </div>
 
-    <h6><%=course.course_title%></h6>
-    <p><%=Category.find(course.category_id).category_name%>, <%=Difficulty.find(course.difficulty_id).difficulty%></p>
-    <p><%=course.price%></p>
-  <%end%>
+  <div>
+  <!---Taxes--->
+    <h6>GST(<%= Province.find_by(id:@customerInfo.province_id).GST * 100%>%):</h6>
+    <p><%=@gst_in_dollars%></p>
+    <h6>PST(<%=Province.find_by(id:@customerInfo.province_id).PST * 100%>%):</h6>
+    <p><%=@pst_in_dollars%></p>
+    <h6>HST(GST + PST):</h6>
+    <p><%=@hst_in_dollars%></p>
+    <!---Total--->
+    <div>
+      <h6>Total Price</h6>
+      <p><%=@total_price%></p>
+    </div>
+    <%= button_to 'Checkout', checkout_create_path, method: :post, class: 'btn btn-primary' %>
+  </div>
+<%else%>
+<h6>Please Fill in your information before continuing</h6>
+<%= form_with url: "cart/#{@currentUser.id}/addRegion", method: :post do |form| %>
+    <%= form.label :address, "Address" %>
+    <%= form.text_field :address %><br>
+    <%= form.label :province_id, "Province/Territory" %>
+    <%= select_tag :province_id, options_from_collection_for_select(Province.all, 'id', "Province_Name")%>
+    <%= submit_tag("submit") %>
+  <% end %>
+
+<%end%>
 </div>
-<!---Total--->
-<div>
-<p><%=@total_price%></p>
-<%= button_to 'Checkout', checkout_create_path, method: :post, class: 'btn btn-primary' %>
-</div>
-
-<p>Displays all items in the cart</p>
