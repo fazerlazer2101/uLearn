@@ -16,7 +16,7 @@
       <% @courses.each do |course| %>
         <tr>
           <td><%= link_to course.course_title, course %></td>
-          <td><%= course.category.category_name %></td>
+          <td><%= link_to course.category.category_name, category_path(course.category) %></td>
           <td><%= course.publish_date.strftime('%Y, %B %d') %></td>
         </tr>
       <% end %>
