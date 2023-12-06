@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_29_165209) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_05_191605) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -58,6 +58,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_165209) do
     t.index ["difficulty_id"], name: "index_courses_on_difficulty_id"
   end
 
+  create_table "courses_in_orders", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "purchased_course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_courses_in_orders_on_order_id"
+    t.index ["purchased_course_id"], name: "index_courses_in_orders_on_purchased_course_id"
+  end
+
   create_table "customer_infos", force: :cascade do |t|
     t.string "customer_name"
     t.string "phone_number"
@@ -76,6 +85,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_165209) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "customer_info_id", null: false
+    t.string "stripe_session_id"
+    t.date "order_date"
+    t.decimal "price"
+    t.decimal "GST"
+    t.decimal "HST"
+    t.decimal "PST"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_info_id"], name: "index_orders_on_customer_info_id"
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "Province_Name"
     t.decimal "GST"
@@ -83,6 +105,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_165209) do
     t.decimal "PST"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "purchased_courses", force: :cascade do |t|
+    t.string "course_title"
+    t.string "description"
+    t.decimal "price"
+    t.integer "number_of_lectures"
+    t.integer "difficulty_id", null: false
+    t.integer "course_length"
+    t.integer "category_id", null: false
+    t.date "publish_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_purchased_courses_on_category_id"
+    t.index ["difficulty_id"], name: "index_purchased_courses_on_difficulty_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,12 +130,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_165209) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "courses", "categories"
   add_foreign_key "courses", "difficulties"
+  add_foreign_key "courses_in_orders", "orders"
+  add_foreign_key "courses_in_orders", "purchased_courses"
   add_foreign_key "customer_infos", "provinces"
   add_foreign_key "customer_infos", "users"
+  add_foreign_key "orders", "customer_infos"
+  add_foreign_key "purchased_courses", "categories"
+  add_foreign_key "purchased_courses", "difficulties"
 end

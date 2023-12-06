@@ -23,8 +23,12 @@
       <% if user_signed_in? %>
         Welcome, <%= link_to current_user.email,  "/user/#{current_user.id}" %>
           <%= button_to "Sign out", destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
+          <%if !session[:cart].nil?%>
+          <%= button_to 'Cart', "/cart", method: :get, class: 'btn btn-primary' %>
+          <%end%>
+
         <% else %>
-          <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-primary', data: { bs_toggle: 'modal', bs_target: '#loginModal' } %>
+          <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-primary' %>
         <%new_user_session_path%>
       <% end %>
     </div>
