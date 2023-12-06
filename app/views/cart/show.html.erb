@@ -5,6 +5,7 @@
     <%= msg %>
   </div>
 <% end %>
+
 <%if !CustomerInfo.find_by(user_id: @currentUser.id).nil?%>
   <!---Cart Items--->
   <div>
@@ -33,7 +34,11 @@
       <h6>Total Price</h6>
       <p><%=@total_price%></p>
     </div>
-    <%= button_to 'Checkout', checkout_create_path, method: :post, class: 'btn btn-primary' %>
+    <%=form_with url:@session.url, remote:true do%>
+      <%=button_tag "Checkout"%>
+      <%end%>
+    <%= button_to 'Checkout', checkout_create_path, method: :post, remote:true, class: 'btn btn-primary' %>
+    <%= link_to 'Checkout2', @session.url, class: 'btn btn-primary' %>
   </div>
 <%else%>
 <!---Requests user to fill in address and province at minimum before procceding--->

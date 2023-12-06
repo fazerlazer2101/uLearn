@@ -18,5 +18,12 @@ module ULearn
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    Rails.application.config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'checkout.stripe.com' # Replace '' with the appropriate origin(s) for your application
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+      end
+    end
   end
 end
