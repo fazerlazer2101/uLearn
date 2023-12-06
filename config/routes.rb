@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  # Routes for Category
+  resources :categories, only: %i[index show]
+
+  # Routes for Active Admin
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   # Routes for Course (Home)
   root to: "home#index"
   get "home/about"

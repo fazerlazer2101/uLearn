@@ -1,10 +1,29 @@
-<h1>Courses U can Learn!</h1>
-<div>
-  <% @courses.each do |course| %>
-  <div>
-    <a href="<%= course_path(course) %>">
-      <%= course.course_title %>
-    </a>
+<div class="container-md">
+  <h1 class="display-3"><strong>Courses U can Learn!</strong></h1><br/>
+  <div class="d-flex flex-row-reverse">
+    <%= paginate @courses %>
   </div>
-  <% end %>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+        <th scope="col">Course Category</th>
+        <th scope="col">Date Published</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= link_to course.course_title, course %></td>
+          <td><%= link_to course.category.category_name, category_path(course.category) %></td>
+          <td><%= course.publish_date.strftime('%Y, %B %d') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br/>
+  <div class="d-flex flex-row-reverse">
+    <%= paginate @courses %>
+  </div>
 </div>
