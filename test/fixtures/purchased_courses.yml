@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_title: MyString
+  description: MyString
+  price: 9.99
+  number_of_lectures: 1
+  difficulty: one
+  course_length: 1
+  category: one
+  publish_date: 2023-12-05
+
+two:
+  course_title: MyString
+  description: MyString
+  price: 9.99
+  number_of_lectures: 1
+  difficulty: two
+  course_length: 1
+  category: two
+  publish_date: 2023-12-05
