@@ -32,7 +32,8 @@ add_flash_types :success
       redirect_to user_password_path, success: "Successfully updated user information!"
     end
 
-    Stripe::Customer.update(
+  #Updates information on stripe
+  Stripe::Customer.update(
   User.find(current_user.id).stripe_customer_id.to_s,
   {
     phone: "1#{params[:phone].to_s}",

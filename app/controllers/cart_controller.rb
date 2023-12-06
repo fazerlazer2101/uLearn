@@ -44,6 +44,7 @@ class CartController < ApplicationController
     #ALL STRIPE BELOW
 
     #Grabs cart items
+    if !CustomerInfo.find_by(user_id: @currentUser.id).nil?
     @items_in_cart = session[:cart]
     @products ||= [];
     @total_price = 0;
@@ -90,6 +91,7 @@ class CartController < ApplicationController
 
     )
   end
+  end
 
   def addRegion
     info = CustomerInfo.create(
@@ -98,5 +100,6 @@ class CartController < ApplicationController
         province_id:   params[:province_id]
       )
       flash[:success]= "Successfully updated user information!"
+      redirect_to cart_path
   end
 end

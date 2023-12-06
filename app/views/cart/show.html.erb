@@ -6,7 +6,7 @@
   </div>
 <% end %>
 
-<%if !CustomerInfo.find_by(user_id: @currentUser.id).nil?%>
+<%if !CustomerInfo.find_by(user_id: @currentUser.id).nil? && CustomerInfo.find_by(user_id: @currentUser.id).address !=""%>
   <!---Cart Items--->
   <div>
     <% @test.each do |course| %>
@@ -34,9 +34,7 @@
       <h6>Total Price</h6>
       <p><%=@total_price%></p>
     </div>
-    <%=form_with url:@session.url, remote:true do%>
-      <%=button_tag "Checkout"%>
-      <%end%>
+    <!---Checkout Buttons--->
     <%= button_to 'Checkout', checkout_create_path, method: :post, remote:true, class: 'btn btn-primary' %>
     <%= link_to 'Checkout2', @session.url, class: 'btn btn-primary' %>
   </div>
@@ -45,11 +43,10 @@
 <h6>Please Fill in your information before continuing</h6>
   <%= form_with url: "cart/#{@currentUser.id}/addRegion", method: :post do |form| %>
     <%= form.label :address, "Address" %>
-    <%= form.text_field :address %><br>
+    <%= form.text_field :address,  required:true %><br>
     <%= form.label :province_id, "Province/Territory" %>
     <%= select_tag :province_id, options_from_collection_for_select(Province.all, 'id', "Province_Name")%>
     <%= submit_tag("submit") %>
   <% end %>
-
 <%end%>
 </div>

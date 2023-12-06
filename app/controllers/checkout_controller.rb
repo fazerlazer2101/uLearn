@@ -40,7 +40,7 @@ class CheckoutController < ApplicationController
       payment_method_types: ["card"],
       customer: User.find(@userSession.id).stripe_customer_id,
       success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: checkout_cancel_url + '?session_id={CHECKOUT_SESSION_ID}',
+      cancel_url: checkout_cancel_url,
       line_items: [json_data],
       mode: 'payment',
       phone_number_collection: {
@@ -54,21 +54,6 @@ class CheckoutController < ApplicationController
 
     )
 
-    # @session = Stripe::Checkout::Session.create(
-    #   # went to stripe api
-    #   payment_method_types: ['card'],
-    #   success_url: checkout_success_url + '?session_id={CHECKOUT_SESSION_ID}',
-    #   cancel_url: checkout_cancel_url,
-    #   mode: 'payment',
-    #   line_items: [json_data
-
-
-    #   ]
-    # )
-    # establish conn to Stripe
-    # respond_to do |format|
-    #   format.js # render app/view/checkout.create.js.erb
-    # end
     puts(@session.url)
     redirect_to @session.url, allow_other_host: true
 
@@ -139,36 +124,7 @@ class CheckoutController < ApplicationController
 
   def cancel
     #Cancel the current checkout proccess
-    #Updates the orders table
-    #Retrieves session id
-    session_id = params[:session_id]
 
-    @currentUser = current_user
-
-    #Gets current total and taxes
-    #Grabs cart items
-    @items_in_cart = session[:cart]
-    puts (@items_in_cart)
-    @products ||= [];
-    @total_price = 0;
-    @items_in_cart.each do |n|
-      @products << Course.find(n)
-      @total_price += Course.find(n).price
-      puts (@products)
-      puts(Course.find(n).price)
-    end
-
-    @province = Province.find(CustomerInfo.find_by("user_id = #{@currentUser.id}").province_id)
-    #Creates a new order entry
-    newOrder = Order.create(
-      customer_info_id: (CustomerInfo.find_by(user_id: @currentUser.id).id).to_i,
-      stripe_session_id: (session_id.to_s),
-      order_date: Time.current.strftime("%Y-%m-%d %H:%M:%S"),
-      price: @total_price,
-      GST: @province.GST,
-      HST: @province.HST,
-      PST: @province.PST
-    )
     redirect_to root_path, allow_other_host:true
   end
 end

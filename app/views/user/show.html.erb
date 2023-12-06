@@ -11,11 +11,11 @@
 <%if(!@currentUserInformation.nil?)%>
   <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
     <%= form.label :fullName, "Full Name" %>
-    <%= form.text_field :fullName, value:@currentUserInformation.customer_name %><br>
+    <%= form.text_field :fullName,required:true, value:@currentUserInformation.customer_name %><br>
     <%= form.label :phone, "Phone Number" %>
-    <%= form.telephone_field :phone, value:@currentUserInformation.phone_number, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333"  %><br>
+    <%= form.telephone_field :phone, required:true, value:@currentUserInformation.phone_number, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333"  %><br>
     <%= form.label :address, "Address" %>
-    <%= form.text_field :address, value:@currentUserInformation.address %><br>
+    <%= form.text_field :address,required:true, value:@currentUserInformation.address %><br>
     <%= form.label :province_id, "Province/Territory" %>
     <%= select_tag :province_id,options_from_collection_for_select(@Province, 'id', "Province_Name", @currentUserInformation.province_id)%>
     <%= submit_tag("submit") %>
@@ -23,19 +23,16 @@
 <%else%>
   <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
     <%= form.label :fullName, "Full Name" %>
-    <%= form.text_field :fullName %><br>
+    <%= form.text_field :fullName, required:true %><br>
     <%= form.label :phone, "Phone Number" %>
-    <%= form.telephone_field :phone, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333"  %><br>
+    <%= form.telephone_field :phone, required:true, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333"  %><br>
     <%= form.label :address, "Address" %>
-    <%= form.text_field :address %><br>
+    <%= form.text_field :address, required:true %><br>
     <%= form.label :province_id, "Province/Territory" %>
     <%= select_tag :province_id, options_from_collection_for_select(@Province, 'id', "Province_Name")%>
     <%= submit_tag("submit") %>
   <% end %>
 <%end%>
-
-
-
 
 
 </div>
