@@ -1,4 +1,4 @@
 class CoursesInOrder < ApplicationRecord
   belongs_to :order
-  belongs_to :purchased_course
+  has_many :purchased_course, dependent: :destroy
 end

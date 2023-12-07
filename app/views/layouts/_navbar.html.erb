@@ -1,44 +1,40 @@
 <nav class="navbar navbar-expand-lg bg-primary-subtle">
   <div class="container-fluid">
-    <%= link_to 'ULearn', root_path, class: "navbar-brand" %>
+    <%= link_to 'uLearn', root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to "About", home_about_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <% if user_signed_in? %>
-        Welcome, <%= link_to current_user.email,  "/user/#{current_user.id}" %>
-          <%= button_to "Sign out", destroy_user_session_path, class: 'btn btn-primary', method: :delete %>
-          <%if !session[:cart].nil?%>
-          <%= button_to 'Cart', "/cart", method: :get, class: 'btn btn-primary' %>
-          <%end%>
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto nav-fill">
+        <li class="nav-item">
+          <%= link_to "About", courses_about_path, class: "nav-link" %>
+        </li>
+
+        <%# Search Functionality %>
+        <%# <li class="nav-item">
+          <%= render 'categories/categories_dropdown' %>
+        </li>
+
+        <%# Logged In User Conditional %>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <h5 class="navbar-text" display="inline">Welcome, <%= link_to current_user.email, "/user/#{current_user.id}" %></h5>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Sign out", destroy_user_session_path, class: 'btn btn-outline-primary', method: :delete %>
+          </li>
+          <% if !session[:cart].nil?%>
+              <%= button_to 'Cart', "/cart", method: :get, class: 'btn btn-primary ms-2' %>
+          <% end %>
         <% else %>
-          <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-primary' %>
-        <%new_user_session_path%>
-      <% end %>
+          <li class="nav-item">
+            <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-outline-primary' %>
+            <% new_user_session_path %>
+          </li>
+        <% end %>
+      </ul>
     </div>
+    <%= render 'categories/categories_dropdown' %>
   </div>
 </nav>
