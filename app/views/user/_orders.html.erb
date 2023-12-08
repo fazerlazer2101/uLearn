@@ -1,0 +1,31 @@
+<div class="container-md">
+  <div class="d-flex flex-row-reverse">
+  </div>
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Order ID:</th>
+        <th scope="col">Order Date:</th>
+        <th scope="col"># of Courses</th>
+        <th scope="col">GST</th>
+        <th scope="col">PST</th>
+        <th scope="col">HST</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @pastOrders.each do |order| %>
+        <tr>
+          <td><p><%= link_to order.stripe_session_id, "/order_details/id=#{Order.find_by(stripe_session_id: order.stripe_session_id).id}"%></p></td>
+          <td><p><%=  order.order_date.strftime('%Y, %m %d')%></p></td>
+          <td><p><%= CoursesInOrder.all.where(order_id: order.id).count()%></p></td>
+          <td><p><%= (order.GST) * 100  %>%</p></td>
+          <td><p><%= (order.PST) * 100  %>%</p></td>
+          <td><p><%= (order.HST) * 100  %>%</p></td>
+          <td><p>$<%=order.price + order.price*order.HST%></p></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br/>
+</div>

@@ -104,8 +104,11 @@ class CheckoutController < ApplicationController
         difficulty_id: n.difficulty_id.to_i,
         course_length: n.course_length,
         category_id: n.category_id,
-        publish_date: n.publish_date
+        publish_date: n.publish_date,
+        users_id: @currentUser.id.to_i
       )
+      puts(@currentUser.id)
+      puts (purchased_courses.valid?)
     end
 
     #Add the purchased courses into courses_in_order
