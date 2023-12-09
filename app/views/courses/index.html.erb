@@ -1,12 +1,20 @@
 
 <div class="container-md">
+<!---Flash Hash Message--->
+  <% if flash.now[:message] %>
+    <div class="alert alert-info alert-dismissible fade show">
+      <%= flash[:message] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
   <h1 class="display-3"><strong>Courses U can Learn!</strong></h1><br/>
   <div class="d-flex flex-row-reverse">
     <%= paginate @courses %>
     <%= session[:cart] %>
   </div>
 
-  <table class="table table-sm">
+
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">Course Name</th>
@@ -22,23 +30,23 @@
           <td><%= course.publish_date.strftime('%Y, %B %d') %></td>
           <td>
             <!---Changes the function of the add to cart--->
-              <%if user_signed_in?%>
+              <% if user_signed_in? %>
               <!---Allows user to add items to cart if logged in --->
-                <% if !session[:cart].nil? &&session[:cart].include?(course.id) %>
-                  <%= form_with url:"cart/#{course.id}/delete", method: :post do%>
-                    <%= button_tag "Remove From Cart" %>
-                  <%end%>
-                <%else%>
-                  <%= form_with url:"cart/#{course.id}/update", method: :post do%>
-                  <%= button_tag "Add to cart" %>
-                  <%end%>
-                <%end%>
-              <%else%>
+                <% if !session[:cart].nil? && session[:cart].include?(course.id) %>
+                  <%= form_with url:"cart/#{course.id}/delete", method: :post do %>
+                    <%= button_tag "Remove From Cart", class: 'btn btn-outline-secondary' %>
+                  <% end %>
+                <% else %>
+                  <%= form_with url:"cart/#{course.id}/update", method: :post do %>
+                  <%= button_tag "Add to cart", class: 'btn btn-outline-primary' %>
+                  <% end %>
+                <% end %>
+              <% else %>
               <!---If the user is not signed in the Add to cart redirects to a register/login --->
-                <%= form_with url:new_user_session_path, method: :get do%>
-                    <%= button_tag "Add Item to cart" %>
-                  <%end%>
-              <%end%>
+                <%= form_with url:new_user_session_path, method: :get do %>
+                  <%= button_tag "Add to Cart", class: 'btn btn-outline-primary' %>
+                <% end %>
+              <% end %>
           </td>
         </tr>
       <% end %>
