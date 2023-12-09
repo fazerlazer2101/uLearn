@@ -1,5 +1,5 @@
 class CartController < ApplicationController
-  before_action :authenticate_user!, :check_if_cart_exists
+  before_action :authenticate_user!
   helper_method :current_user
   def create
     logger.debug("adding #{params[:id]} to cart")
@@ -11,17 +11,6 @@ class CartController < ApplicationController
     redirect_to root_path
   end
 
-  def check_if_cart_exists
-    #Checks if user has items in cart
-    puts(session[:cart].nil?)
-    if(session[:cart].nil?)
-      flash[:warning]= "You need items in your cart to continue"
-
-      puts("redirect to root")
-      redirect_to root_path
-    end
-
-  end
   def delete
     course_id = params[:id].to_i
     session[:cart].delete(course_id)
