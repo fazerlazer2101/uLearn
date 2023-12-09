@@ -1,3 +1,92 @@
-<h1>
-  ABOUT PAGE
-</h1>
+<div class="card border-info mb-3 mx-auto" style="width 200rem;">
+  <h1  class="card-header">About <em>uLearn</em></h1>
+  <div class="card-body">
+    <p class="card-text"><strong>uLearn</strong> is an e-commerce website about selling self-paced online courses for others to
+      purchase and expand their knowledge or gain more skills. The target demographic is adult learners who are either currently
+      working and just want to expand their skills without having to enroll in a school or commit to a certain time. Or students
+      who are curious about different subjects that they may not be learning in school.
+    </p>
+    <p class="card-text">
+      This web application is created by <strong>Uncle Sam</strong>, a partnership by two students - Sam Ferrer and Xam Abados, graduating BIT Students
+      of Red River College Polytechnic. This is also their Full-Stack Web Development class final project. Below is the database ERD of this web application.
+    </p>
+  </div>
+  <%= image_tag("Ecommerce_ERD.png",class: " card-img-top img-fluid", alt:"uLearn's ERD") %><br/>
+
+  <h2  class="card-header">Table Descriptions</em></h2>
+  <div class="container">
+  <div class="row row-cols-3">
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">User Table</div>
+        <div class="card-body">
+          <p class="card-text">Tracks and stores user password and username that is used for logging in to the site.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Customer Info Table</div>
+        <div class="card-body">
+          <p class="card-text">Stores the information of a particular customer assigned to one particular user. And uses the provinces table to assign to retrieve respective taxes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Provinces Table</div>
+        <div class="card-body">
+          <p class="card-text">Holds all the provinces and territories of Canada with their corresponding GST, HST, PST rates. These taxes are applied to the user whenever they do a transaction.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Orders Table</div>
+        <div class="card-body">
+          <p class="card-text">Provides basic information of an order that is associated with the particular customer.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Courses In Order Table</div>
+        <div class="card-body">
+          <p class="card-text">Stores the courses that were used in a particular transaction.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Purchased Course Table</div>
+        <div class="card-body">
+          <p class="card-text">Saves the purchased courses details so that whenever a detail changes on a course the transaction details won’t change.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Courses Table</div>
+        <div class="card-body">
+          <p class="card-text">Will contain all the current available courses on the website.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Category Table</div>
+        <div class="card-body">
+          <p class="card-text">Contains all the categories that a course can be assigned. The categories will be updated as time goes on and be used by multiple diff erent courses.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card border-secondary mb-3">
+        <div class="card-header">Difficulty Table</div>
+        <div class="card-body">
+          <p class="card-text">This table will store our difficulty levels that a course can have. These diffi culties can be reused and new diffi culties can be actively created.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
