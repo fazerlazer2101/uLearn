@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'order_details/show'
   # Routes for Category
   resources :categories, only: %i[index show]
 
@@ -17,6 +18,10 @@ Rails.application.routes.draw do
   post "/user/:id/update", to: "user#update"
   get "/user/:id", to: "user#show"
   resources :customer_infos, only: %i[show]
+
+  #Routes for order details
+  get "order_details/:id", to: "order_details#show"
+
 
   # Routes for Cart management
   post "/cart/:id/update", to: "cart#create"

@@ -1,0 +1,53 @@
+<h5>Viewing order: <%=@orderName%></h5>
+
+<!---Course Details--->
+<div class="container-md">
+  <div class="d-flex flex-row-reverse">
+  </div>
+  <table class="table table-sm">
+    <thead>
+        <th scope="col">Course Name</th>
+        <th scope="col">Course Category</th>
+        <th scope="col">Difficulty</th>
+        <th scope="col"># of Lectures</th>
+        <th scope="col">Course Length</th>
+        <th scope="col">Date Published</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @courses.each do |c| %>
+        <tr >
+          <td><p><%=c.course_title%></p></td>
+          <td><p><%= (Category.find(c.category_id).category_name) %></p></td>
+          <td><p><%= (Difficulty.find(c.difficulty_id).difficulty) %></p></td>
+          <td><p><%= (c.number_of_lectures)%></p></td>
+          <td><p><%= (c.course_length)%></p></td>
+          <td><p><%= (c.publish_date)%></p></td>
+          <td style="text-align: right;"><p>$<%=(c.price)%></p></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th scope="row">Subtotal</th>
+      <td colspan="6" style="text-align: right;"><p>$<%=Order.find(@orderId).price%></p></td>
+    </tr>
+    <tr>
+      <th scope="row">GST</th>
+      <td colspan="6" style="text-align: right;"><p>$<%=Order.find(@orderId).price * Order.find(@orderId).GST%></p></td>
+    </tr>
+    <tr>
+      <th scope="row">PST</th>
+      <td colspan="6" style="text-align: right;"><p>$<%=Order.find(@orderId).price * Order.find(@orderId).PST%></p></td>
+    </tr>
+    <tr>
+      <th scope="row">Total</th>
+      <td colspan="6" style="text-align: right;"><p>$<%=Order.find(@orderId).price * (1 + Order.find(@orderId).HST )%></p></td>
+    </tr>
+  </tfoot>
+  </table>
+</div>
+
+
+

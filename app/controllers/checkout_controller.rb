@@ -33,7 +33,7 @@ class CheckoutController < ApplicationController
       redirect_to root_path
     end
 
-    Stripe.api_key = "sk_test_51OJgI5B7ve0qtzXwoCzhLYuz85Z3slLN6cw4LQzTKTd8jTvi3n1DGSH2kYho9jj4yUYU3GttVjYWi2SLvIQrANDV00wDFRYC0X"
+   # Stripe.api_key = "sk_test_51OJgI5B7ve0qtzXwoCzhLYuz85Z3slLN6cw4LQzTKTd8jTvi3n1DGSH2kYho9jj4yUYU3GttVjYWi2SLvIQrANDV00wDFRYC0X"
 
     #Create Stripe session
     @session = Stripe::Checkout::Session.create(
@@ -104,8 +104,11 @@ class CheckoutController < ApplicationController
         difficulty_id: n.difficulty_id.to_i,
         course_length: n.course_length,
         category_id: n.category_id,
-        publish_date: n.publish_date
+        publish_date: n.publish_date,
+        users_id: @currentUser.id.to_i
       )
+      puts(@currentUser.id)
+      puts (purchased_courses.valid?)
     end
 
     #Add the purchased courses into courses_in_order

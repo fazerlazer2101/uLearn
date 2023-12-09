@@ -7,6 +7,10 @@ add_flash_types :success
     @Province = Province.all
     # Retrieve current user info
     @currentUserInformation = CustomerInfo.find_by(user_id: params[:id])
+
+    currentUser = current_user
+    #Get past orders
+    @pastOrders = Order.all.where(customer_info_id: CustomerInfo.find_by(user_id: currentUser.id))
   end
 
   def update
@@ -54,5 +58,7 @@ add_flash_types :success
     },
   },
 )
+
+
   end
 end
