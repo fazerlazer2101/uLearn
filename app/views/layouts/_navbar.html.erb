@@ -9,7 +9,7 @@
         <%# Logged In User Conditional %>
         <% if user_signed_in? %>
           <li class="nav-item">
-            <p class="navbar-text" display="inline" style="margin-bottom: 0px; margin-right: 10px">Hi, <%= link_to current_user.email, "/user/#{current_user.id}" %></p>
+            <p class="navbar-text" style="margin-bottom: 0px; margin-right: 10px">Hi, <%= link_to current_user.email, "/user/#{current_user.id}" %></p>
           </li>
           <li class="nav-item">
             <%#= button_to "Sign out", destroy_user_session_path, class: 'btn btn-outline-primary', method: :delete %>
