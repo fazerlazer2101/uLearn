@@ -1,5 +1,12 @@
 
 <div class="container-md">
+<!---Flash Hash Message--->
+  <% if flash.now[:message] %>
+    <div class="alert alert-info alert-dismissible fade show">
+      <%= flash[:message] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
   <h1 class="display-3"><strong>Courses U can Learn!</strong></h1><br/>
   <div class="d-flex flex-row-reverse">
     <%= paginate @courses %>
