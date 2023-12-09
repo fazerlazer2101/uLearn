@@ -1,7 +1,9 @@
 <%= form_tag(courses_path, method: :get, class: "form-inline my-2 my-lg-0") do %>
   <div class="input-group">
-    <%= text_field_tag(:keyword, params[:keyword], class: "form-control mr-sm-2", placeholder: "Search by keyword") %>
     <%= select_tag(:category_id, options_from_collection_for_select(@all_categories, 'id', 'category_name', params[:category_id]), { include_blank: 'All Categories', class: 'btn btn-success dropdown-toggle mr-sm-2' }) %>
-    <%= submit_tag("Search", class: "btn btn-outline-success my-2 my-sm-0") %>
+    <%= text_field_tag(:keyword, params[:keyword], class: "form-control mr-sm-2 p-2", placeholder: "Search by keyword") %>
+    <%= button_tag(type: "submit", class: "btn btn-outline-success my-2 my-sm-0 p-2") do %>
+      <i class="fas fa-search"></i>
+    <% end %>
   </div>
 <% end %>

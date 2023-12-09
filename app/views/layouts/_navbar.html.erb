@@ -1,40 +1,46 @@
 <nav class="navbar navbar-expand-lg bg-primary-subtle">
   <div class="container-fluid">
-    <%= link_to 'uLearn', root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+    <%= link_to 'uLearn', root_path, class: "navbar-brand" %>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto nav-fill">
-        <li class="nav-item">
-          <%= link_to "About", courses_about_path, class: "nav-link" %>
-        </li>
-
-        <%# Search Functionality %>
-        <%# <li class="nav-item">
-          <%= render 'categories/categories_dropdown' %>
-        </li>
-
+      <ul class="navbar-nav me-auto nav-fill navbar-nav-scroll">
         <%# Logged In User Conditional %>
         <% if user_signed_in? %>
           <li class="nav-item">
-            <h5 class="navbar-text" display="inline">Welcome, <%= link_to current_user.email, "/user/#{current_user.id}" %></h5>
+            <p class="navbar-text" display="inline" style="margin-bottom: 0px; margin-right: 10px">Hi, <%= link_to current_user.email, "/user/#{current_user.id}" %></p>
           </li>
           <li class="nav-item">
-            <%= button_to "Sign out", destroy_user_session_path, class: 'btn btn-outline-primary', method: :delete %>
+            <%#= button_to "Sign out", destroy_user_session_path, class: 'btn btn-outline-primary', method: :delete %>
+            <%= button_to destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary' do %>
+              Sign Out <i class="fas fa-right-from-bracket"></i>
+            <% end %>
           </li>
           <% if !session[:cart].nil?%>
-              <%= button_to 'Cart', "/cart", method: :get, class: 'btn btn-primary ms-2' %>
+            <li class="nav-item">
+              <%= button_to "/cart", method: :get, class: 'btn btn-primary' do %>
+                Checkout <i class="fa-solid fa-cart-shopping"></i>
+              <% end %>
+            </li>
           <% end %>
         <% else %>
           <li class="nav-item">
-            <%= button_to 'Log In', new_user_session_path, method: :get, class: 'btn btn-outline-primary' %>
-            <% new_user_session_path %>
+            <%= link_to new_user_session_path, class: 'btn btn-outline-primary' do %>
+              Sign In <i class="fas fa-right-to-bracket"></i>
+            <% end %>
           </li>
         <% end %>
+
+        <li class="nav-item">
+          <%= link_to "About", courses_about_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Categories", categories_path, class:"nav-link" %>
+        </li>
       </ul>
+      <%= render 'categories/categories_dropdown' %>
     </div>
-    <%= render 'categories/categories_dropdown' %>
+
   </div>
 </nav>
