@@ -16,7 +16,7 @@
     <tbody class="table-group-divider">
       <% @pastOrders.each do |order| %>
         <tr>
-          <td><p><%= link_to order.stripe_session_id, "/order_details/id=#{Order.find_by(stripe_session_id: order.stripe_session_id).id}"%></p></td>
+          <td><p><%= link_to order.stripe_session_id, "/order_details/#{Order.find_by(stripe_session_id: order.stripe_session_id).id}"%></p></td>
           <td><p><%=  order.order_date.strftime('%Y, %m %d')%></p></td>
           <td><p><%= CoursesInOrder.all.where(order_id: order.id).count()%></p></td>
           <td><p><%= (order.GST) * 100  %>%</p></td>
