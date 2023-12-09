@@ -19,6 +19,7 @@
     <%= form.label :province_id, "Province/Territory" %>
     <%= select_tag :province_id,options_from_collection_for_select(@Province, 'id', "Province_Name", @currentUserInformation.province_id)%>
     <%= submit_tag("submit") %>
+    <%= render 'user/orders' %>
   <% end %>
 <%else%>
   <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>

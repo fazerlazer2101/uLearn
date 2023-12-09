@@ -23,6 +23,8 @@ class CartController < ApplicationController
 
     @currentUser = current_user
 
+
+
     #Customer info
     @customerInfo = CustomerInfo.find_by(user_id: @currentUser.id)
 
@@ -50,7 +52,34 @@ class CartController < ApplicationController
         user_id:       params[:id],
         province_id:   params[:province_id]
       )
+      #Updates information on stripe
+  Stripe::Customer.update(
+    User.find(current_user.id).stripe_customer_id.to_s,
+    {
+      phone: "1#{params[:phone].to_s}",
+      name: params[:fullName].to_s,
+      address: {
+        country: 'CA',
+        line1: params[:address].to_s,
+        state: Province.find(params[:province_id]).Province_Name.to_s,
+      },
+      shipping: {
+        address: {
+          country: 'CA',
+          line1:  params[:address].to_s,
+          state: Province.find(params[:province_id]).Province_Name.to_s,
+        },
+        name: params[:fullName].to_s,
+        phone: "1#{params[:phone].to_s}",
+      },
+    },
+  )
       flash[:success]= "Successfully updated user information!"
-      redirect_to cart_path
+      if(!session[:cart].nil?)
+        redirect_to cart_path
+      else
+        redirect_to root_path
+      end
+
   end
 end
