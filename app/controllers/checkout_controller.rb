@@ -33,7 +33,7 @@ class CheckoutController < ApplicationController
       redirect_to root_path
     end
 
-    Stripe.api_key = "sk_test_51OJgI5B7ve0qtzXwoCzhLYuz85Z3slLN6cw4LQzTKTd8jTvi3n1DGSH2kYho9jj4yUYU3GttVjYWi2SLvIQrANDV00wDFRYC0X"
+   # Stripe.api_key = "sk_test_51OJgI5B7ve0qtzXwoCzhLYuz85Z3slLN6cw4LQzTKTd8jTvi3n1DGSH2kYho9jj4yUYU3GttVjYWi2SLvIQrANDV00wDFRYC0X"
 
     #Create Stripe session
     @session = Stripe::Checkout::Session.create(

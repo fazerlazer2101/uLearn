@@ -5,7 +5,11 @@
     <%= paginate @courses %>
     <%= session[:cart] %>
   </div>
-
+<% flash.each do |type, msg| %>
+  <div class="alert alert-<%=type%>">
+    <%= msg %>
+  </div>
+  <%end%>
 
   <table class="table table-sm">
     <thead>

@@ -1,5 +1,5 @@
 class CartController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :check_if_cart_exists
   helper_method :current_user
   def create
     logger.debug("adding #{params[:id]} to cart")
@@ -11,6 +11,17 @@ class CartController < ApplicationController
     redirect_to root_path
   end
 
+  def check_if_cart_exists
+    #Checks if user has items in cart
+    puts(session[:cart].nil?)
+    if(session[:cart].nil?)
+      flash[:warning]= "You need items in your cart to continue"
+
+      puts("redirect to root")
+      redirect_to root_path
+    end
+
+  end
   def delete
     course_id = params[:id].to_i
     session[:cart].delete(course_id)
@@ -22,6 +33,8 @@ class CartController < ApplicationController
     require 'stripe'
 
     @currentUser = current_user
+
+
 
     #Customer info
     @customerInfo = CustomerInfo.find_by(user_id: @currentUser.id)
@@ -73,6 +86,11 @@ class CartController < ApplicationController
     },
   )
       flash[:success]= "Successfully updated user information!"
-      redirect_to cart_path
+      if(!session[:cart].nil?)
+        redirect_to cart_path
+      else
+        redirect_to root_path
+      end
+
   end
 end
