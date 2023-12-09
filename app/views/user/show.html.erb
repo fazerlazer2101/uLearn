@@ -1,38 +1,64 @@
-<h1><%=current_user.email%></h1>
-<p>Finish making your account!</p>
 <!---Flash Hash Message--->
 <% flash.each do |type, msg| %>
   <div class="alert alert-<%=type%>">
     <%= msg %>
   </div>
 <% end %>
-<!---User update information form--->
-<div>
-<%if(!@currentUserInformation.nil?)%>
-  <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
-    <%= form.label :fullName, "Full Name" %>
-    <%= form.text_field :fullName,required:true, value:@currentUserInformation.customer_name %><br>
-    <%= form.label :phone, "Phone Number" %>
-    <%= form.telephone_field :phone, required:true, value:@currentUserInformation.phone_number, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333"  %><br>
-    <%= form.label :address, "Address" %>
-    <%= form.text_field :address,required:true, value:@currentUserInformation.address %><br>
-    <%= form.label :province_id, "Province/Territory" %>
-    <%= select_tag :province_id,options_from_collection_for_select(@Province, 'id', "Province_Name", @currentUserInformation.province_id)%>
-    <%= submit_tag("submit") %>
-  <% end %>
-<%else%>
-  <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
-    <%= form.label :fullName, "Full Name" %>
-    <%= form.text_field :fullName, required:true %><br>
-    <%= form.label :phone, "Phone Number" %>
-    <%= form.telephone_field :phone, required:true, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333"  %><br>
-    <%= form.label :address, "Address" %>
-    <%= form.text_field :address, required:true %><br>
-    <%= form.label :province_id, "Province/Territory" %>
-    <%= select_tag :province_id, options_from_collection_for_select(@Province, 'id', "Province_Name")%>
-    <%= submit_tag("submit") %>
-  <% end %>
-<%end%>
 
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>Edit Your Account, <%=current_user.email%></h2>
+      <% if(!@currentUserInformation.nil?) %>
+        <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
+          <div class="mb-3">
+            <%= form.label :fullName, "Full Name", class: 'form-label' %>
+            <%= form.text_field :fullName, autofocus: true, required: true, value:@currentUserInformation.customer_name, class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :phone, "Phone Number", class: 'form-label' %>
+            <%= form.telephone_field :phone, required:true, value:@currentUserInformation.phone_number,
+                  pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333", class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :address, "Address", class: 'form-label' %>
+            <%= form.text_field :address,required: true, value:@currentUserInformation.address, class: 'form-control' %>
+          </div>
+          <div class="mb-3 dropup">
+            <%= form.label :province_id, "Province/Territory", class: 'form-label' %>
+            <%= select_tag :province_id,
+              options_from_collection_for_select(@Province, 'id', "Province_Name", @currentUserInformation.province_id),
+              class: 'form-control' %>
+          </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <%= submit_tag("Submit", class: 'btn btn-primary') %>
+          </div><br/>
+        <% end %>
 
+      <% else %>
+        <%= form_with url: "#{current_user.id}/update", method: :post do |form| %>
+          <div class="mb-3">
+            <%= form.label :fullName, "Full Name", class: 'form-label' %>
+            <%= form.text_field :fullName, autofocus: true, required: true, class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :phone, "Phone Number", class: 'form-label' %>
+            <%= form.telephone_field :phone, required: true, pattern:"[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "111-222-3333", class: 'form-control'  %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :address, "Address", class: 'form-label' %>
+            <%= form.text_field :address, required: true, class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :province_id, "Province/Territory", class: 'form-label' %>
+            <%= select_tag :province_id, options_from_collection_for_select(@Province, 'id', "Province_Name"),
+             class: 'form-control'%>
+          </div>
+          <div class="d-grip gap-2 col-6 mx-auto">
+            <%= submit_tag("Submit", class: 'btn btn-primary') %>
+          </div><br/>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
