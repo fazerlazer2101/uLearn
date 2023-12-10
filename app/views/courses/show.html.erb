@@ -18,7 +18,7 @@
           <%= form_with url:"cart/#{@course.id}/delete", method: :post do %>
             <%= button_tag "Remove From Cart", class: 'btn btn-outline-secondary' %><% end %>
         <% else %>
-          <%= form_with url:"cart/#{@course.id}/update", method: :post do %>
+          <%= form_with url:"../cart/#{@course.id}/update", method: :post do %>
             <%= button_tag "Add to cart", class: 'btn btn-outline-primary' %><% end %>
         <% end %>
       <% else %>
