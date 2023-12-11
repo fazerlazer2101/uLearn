@@ -1,34 +1,36 @@
 <h1><%= @category.category_name %> Courses</h1>
 
-<div class="d-flex flex-row-reverse">
+<div class="container-fluid d-flex flex-row-reverse">
     <%= paginate @course_result %>
 </div><br/>
 
-<table class="table table-md">
-  <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Price</th>
-      <th scope="col">Lectures</th>
-      <th scope="col">Difficulty</th>
-      <th scope="col">Length</th>
-      <th scope="col">Date Published</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <% @course_result.each do |course| %>
+<div class="table-responsive">
+  <table class="table table-md">
+    <thead>
       <tr>
-        <td><%= link_to course.course_title, course %></td>
-        <td><%= course.price %></td>
-        <td><%= course.number_of_lectures %></td>
-        <td><%= course.difficulty.difficulty %></td>
-        <td><%= course.course_length %></td>
-        <td><%= course.publish_date.strftime('%B %d, %Y') %></td>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Lectures</th>
+        <th scope="col" class="d-none d-md-table-cell">Difficulty</th>
+        <th scope="col">Length</th>
+        <th scope="col">Date Published</th>
       </tr>
-    <% end %>
-  </tbody>
-</table><br/>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @course_result.each do |course| %>
+        <tr>
+          <td><%= link_to course.course_title, course %></td>
+          <td><%= number_to_currency(course.price) %></td>
+          <td><%= course.number_of_lectures %></td>
+          <td class="d-none d-md-table-cell"><%= course.difficulty.difficulty %></td>
+          <td><%= course.course_length %></td>
+          <td><%= course.publish_date.strftime('%B %d, %Y') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table><br/>
+</div>
 
-<div class="d-flex flex-row-reverse">
+<div class="container-fluid d-flex flex-row-reverse">
     <%= paginate @course_result %>
 </div><br/>
