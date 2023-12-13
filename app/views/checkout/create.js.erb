@@ -1,0 +1,7 @@
+const stripe = Stripe('pk_test_51OJgI5B7ve0qtzXwEFXgQOBpDcs4IHqGW7nYYHYCL2I2pi6iMLSvEtQV5sjwkYyg3KQS67hXY3iB96vxexjZQuk400C9p9uy5X');
+
+stripe.redirectToCheckout({
+  sessionId: '<%= @session.id %>'
+}).then(function(result){
+  console.log(result.error.message);
+})

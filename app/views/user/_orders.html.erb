@@ -1,0 +1,28 @@
+<div class="table-responsive">
+  <table class="table table-sm table-striped table-hover align-middle">
+    <thead>
+      <tr>
+        <th scope="col">Order ID:</th>
+        <th scope="col">Order Date:</th>
+        <th scope="col" class="d-none d-md-table-cell"># of Courses</th>
+        <th scope="col" class="d-none d-md-table-cell">GST</th>
+        <th scope="col" class="d-none d-md-table-cell">PST</th>
+        <th scope="col" class="d-none d-md-table-cell">HST</th>
+        <th scope="col">Price Paid</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @pastOrders.each do |order| %>
+        <tr>
+          <td class="text-truncate"><%= link_to order.stripe_session_id, "/order_details/#{Order.find_by(stripe_session_id: order.stripe_session_id).id}" %></td>
+          <td><%= order.order_date.strftime('%Y, %m-%d') %></td>
+          <td class="d-none d-md-table-cell"><%= CoursesInOrder.all.where(order_id: order.id).count() %></td>
+          <td class="d-none d-md-table-cell"><%= (order.GST) * 100  %>%</td>
+          <td class="d-none d-md-table-cell"><%= (order.PST) * 100  %>%</td>
+          <td class="d-none d-md-table-cell"><%= (order.HST) * 100  %>%</td>
+          <td><%= number_to_currency(order.price + order.price * order.HST) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div><br/>

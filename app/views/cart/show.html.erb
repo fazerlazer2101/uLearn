@@ -1,0 +1,53 @@
+<!---Flash Hash Message--->
+<% flash.each do |type, msg| %>
+  <div class="alert alert-<%=type%>">
+    <%= msg %>
+  </div>
+<% end %>
+
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6 card border-info">
+        <h5 class="card-header">Order Summary</h5>
+        <% if !CustomerInfo.find_by(user_id: @currentUser.id).nil? && CustomerInfo.find_by(user_id: @currentUser.id).address.present? %>
+          <!--- Order Info --->
+          <div class="card-body">
+            <% @test.each do |course| %>
+              <h1 class="card-title"><%=course.course_title%></h1>
+              <p class="card-text"><%= Category.find(course.category_id).category_name%></p>
+              <p class="card-text"><%=Difficulty.find(course.difficulty_id).difficulty %></p>
+              <p class="card-text"><%= number_to_currency(course.price) %></p>
+            <% end %>
+          </div>
+          <div class="card-body text-end">
+            <!---Subtotal--->
+            <p class="card-text">Subtotal: <%= @subtotal_price %><p>
+            <!---Taxes--->
+            <p class="card-text">
+              GST (<%= Province.find_by(id:@customerInfo.province_id).GST * 100 %>%): <%= @gst_in_dollars %></p>
+            <p class="card-text">
+              PST (<%=Province.find_by(id:@customerInfo.province_id).PST * 100 %>%): <%= @pst_in_dollars %></p>
+            <p class="card-text">
+              HST (GST + PST): <%= @hst_in_dollars %></p>
+            <!---Total--->
+            <p class="card-text"><strong>Total Price:</strong> <%= number_to_currency(@total_price) %></p>
+          </div><br/>
+          <div class="card-footer text-end">
+            <%= button_to 'Checkout', checkout_create_path,  method: :post, form: {data: {turbo: "false"}}, remote: true, class: 'btn btn-primary' %><br/>
+          </div>
+        <% else %>
+        <!---Requests user to fill in address and province at minimum before procceding--->
+        <div class="card-body">
+          <h6 class="card-title">Please Fill in your information before continuing</h6>
+          <%= form_with url: "cart/#{@currentUser.id}/addRegion", method: :post do |form| %>
+            <%= form.label :address, "Address" %>
+            <%= form.text_field :address,  required: true, class: 'form-control' %><br>
+            <%= form.label :province_id, "Province/Territory" %>
+            <%= select_tag :province_id, options_from_collection_for_select(Province.all, 'id', "Province_Name"), class: 'form-control' %>
+            <%= submit_tag("Submit", class: 'btn btn-primary mt-2') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div><br/>
