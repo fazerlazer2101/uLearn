@@ -19,7 +19,9 @@
 * visit https://test-nzsgnmqvfq-uc.a.run.app/
   - Note: as typical college boys, they just availed the free trial of Google Cloud's services, and so they ask the users
  <strong><ins>not to stay too long in the app</ins></strong>, as they only managed to have a <em>limit of 50 hours of usage per month.</em> Thank you for understanding.
-
+* To make a purchase you will have to make an account please use a fake email when requested and when prompted for a card on Stripe use "4242424242424242".
+* Filling in the account information will also autofill your Stripe information.
+  
 ## RECREATE this app
 * Fork this repository
 * Open terminal and run...
